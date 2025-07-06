@@ -99,7 +99,7 @@ This plugin is licensed under the [GPL v2 or later](https://www.gnu.org/licenses
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/username/google-news-sitemap/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/gunjanjaswal/google-news-sitemap-wordpress/).
 
 ## ⭐ Show your support
 
