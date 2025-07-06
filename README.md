@@ -95,7 +95,7 @@ This plugin is licensed under the [GPL v2 or later](https://www.gnu.org/licenses
 
 - Website: [gunjanjaswal.me](https://gunjanjaswal.me)
 - Email: hello@gunjanjaswal.me
-- Twitter: [@gunjanjs](https://twitter.com/gunjanjs)
+- Twitter: [@gunjanjs](https://twitter.com/gunjanjaswal)
 
 ## 🤝 Contributing
 
