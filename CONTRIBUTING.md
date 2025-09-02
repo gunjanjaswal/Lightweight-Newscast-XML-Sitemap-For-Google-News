@@ -1,6 +1,6 @@
-# Contributing to Google News Sitemap
+# Contributing to News Sitemap
 
-Thank you for considering contributing to the Google News Sitemap plugin! This document outlines how you can help improve this project.
+Thank you for considering contributing to the News Sitemap plugin! This document outlines how you can help improve this project.
 
 ## How to Contribute
 
