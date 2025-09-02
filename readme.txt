@@ -94,7 +94,7 @@ The publication_date in the sitemap uses the timezone configured in your WordPre
 
 == Changelog ==
 
-= 1.0.3 =
+= 1.0.3 (September 2025) =
 * Renamed plugin to 'News Sitemap' for WordPress.org compatibility
 * Updated all URLs to use news-sitemap.xml format
 * Added Buy Me Coffee donation support
