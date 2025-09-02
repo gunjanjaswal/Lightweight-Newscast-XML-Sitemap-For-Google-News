@@ -24,7 +24,7 @@ A lightweight, SEO plugin compatible WordPress plugin that generates a Google Ne
 ## 💻 Installation
 
 1. Download the latest release from the [releases page](https://github.com/gunjanjaswal/Google-News-Sitemap-Wordpress/releases)
-2. Upload the `news-sitemap` folder to the `/wp-content/plugins/` directory
+2. Upload the `google-news-sitemap` folder to the `/wp-content/plugins/` directory
 3. Activate the plugin through the 'Plugins' menu in WordPress
 4. Go to Settings > News Sitemap to configure the plugin
 
@@ -57,13 +57,12 @@ After installation, your Google News compatible sitemap will be available at two
 
 Both URLs output the same content and work regardless of which SEO plugins you have active.
 
-## 📊 Submitting to Google Search Console
+## 📊 Submitting to Google News
 
-1. Go to [Google Search Console](https://search.google.com/search-console/)
-2. Add your website property and verify ownership
-3. Navigate to Sitemaps section in the left menu
-4. Submit your sitemap URL
-5. Wait for Google to crawl and index your content
+1. Go to [Google News Publisher Center](https://news.google.com/publisher-center/)
+2. Add your publication and verify ownership
+3. Submit your sitemap URL
+4. Wait for Google to crawl and index your content
 
 ## 🔍 Compatibility
 
@@ -79,7 +78,6 @@ This plugin is compatible with:
 - If the pretty permalink URL doesn't work, try the query parameter URL
 - Ensure your publication name and language are set correctly
 - Check that your posts meet Google News requirements (recent, newsworthy content)
-- **Timezone**: Publication dates use the timezone from WordPress General Settings (Settings > General > Timezone)
 
 ## 👨‍💻 Developer Notes
 
@@ -115,7 +113,7 @@ If this plugin has been helpful for your website, consider supporting its develo
 
 ## 📜 Changelog
 
-### 1.0.3 (January 2025)
+### 1.0.3 (September 2025)
 - Renamed plugin to 'News Sitemap' for WordPress.org compatibility
 - Updated all URLs to use news-sitemap.xml format
 - Added Buy Me Coffee donation support
