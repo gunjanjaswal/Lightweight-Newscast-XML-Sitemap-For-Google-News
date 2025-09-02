@@ -1,10 +1,10 @@
-# News Sitemap for WordPress
+# Easy News Sitemap XML for WordPress
 
 [![WordPress Compatible](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP Version](https://img.shields.io/badge/PHP-7.0%2B-purple.svg)](https://www.php.net/)
 [![License](https://img.shields.io/badge/License-GPL%20v2%2B-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 
-A lightweight, SEO plugin compatible WordPress plugin that generates a Google News compatible sitemap for your website. Submit this sitemap to Google Search Console to have your content included in Google News.
+A lightweight, SEO plugin compatible WordPress plugin that generates a Google News compatible XML sitemap for your website. Submit this sitemap to Google Search Console to have your content included in Google News.
 
 ## 🚀 Features
 
@@ -24,9 +24,9 @@ A lightweight, SEO plugin compatible WordPress plugin that generates a Google Ne
 ## 💻 Installation
 
 1. Download the latest release from the [releases page](https://github.com/gunjanjaswal/Google-News-Sitemap-Wordpress/releases)
-2. Upload the `google-news-sitemap` folder to the `/wp-content/plugins/` directory
+2. Upload the `easy-news-sitemap-xml` folder to the `/wp-content/plugins/` directory
 3. Activate the plugin through the 'Plugins' menu in WordPress
-4. Go to Settings > News Sitemap to configure the plugin
+4. Go to Settings > Easy News Sitemap XML to configure the plugin
 
 ## 🔧 Configuration
 
@@ -52,8 +52,8 @@ The plugin provides several configuration options:
 
 After installation, your Google News compatible sitemap will be available at two URLs:
 
-- **Pretty Permalink**: `https://your-site.com/news-sitemap.xml`
-- **Query Parameter**: `https://your-site.com/?news_sitemap=1`
+- **Pretty Permalink**: Your sitemap will be available at: `http://yoursite.com/easy-news-sitemap-xml.xml`
+- **Query Parameter**: `https://your-site.com/?easy_news_sitemap=1`
 
 Both URLs output the same content and work regardless of which SEO plugins you have active.
 
@@ -114,8 +114,8 @@ If this plugin has been helpful for your website, consider supporting its develo
 ## 📜 Changelog
 
 ### 1.0.3 (September 2025)
-- Renamed plugin to 'News Sitemap' for WordPress.org compatibility
-- Updated all URLs to use news-sitemap.xml format
+- Renamed plugin from 'Google News Sitemap' to 'Easy News Sitemap XML' for WordPress.org compatibility
+- Updated all URLs to use easy-news-sitemap-xml.xml format
 - Added Buy Me Coffee donation support
 - Improved WordPress.org compliance with unique prefixes
 - Enhanced Google News compatibility descriptions
