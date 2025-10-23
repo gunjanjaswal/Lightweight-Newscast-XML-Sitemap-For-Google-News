@@ -4,7 +4,7 @@ Tags: sitemap, google news, news, xml sitemap, seo
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 1.0.3
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,31 +82,26 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 
 == Changelog ==
 
-= 1.0.3 (September 2025) =
-* Renamed plugin from 'News Sitemap XML for Google News' to 'Lightweight Newscast XML Sitemap For Google News' for better clarity
-* Updated all URLs to use lightweight-newscast-xml-sitemap-for-google-news.xml format
-* Added Buy Me Coffee donation support
-* Improved WordPress.org compliance with unique prefixes
-* Enhanced Google News compatibility descriptions
-
-= 1.0.2 =
+= 1.0.0 =
+* Initial release with core functionality
+* Added XML sitemap generation for Google News
+* Implemented settings page with customization options
+* Added support for pretty permalinks
 * Added direct URL interception for SEO plugin compatibility
 * Improved admin interface with better instructions
 * Added Google News submission guidelines
 * Fixed compatibility issues with Yoast SEO and All in One SEO
-
-= 1.0.1 =
 * Fixed empty publication name and language fields
 * Added fallback values for required fields
 * Improved error handling and validation
-
-= 1.0.0 =
-* Initial release
+* Improved WordPress.org compliance with unique prefixes
+* Enhanced Google News compatibility descriptions
+* Added Buy Me Coffee donation support
 
 == Upgrade Notice ==
 
-= 1.0.3 =
-This version improves WordPress.org compatibility and updates the plugin name. Your sitemap URL will change from news-sitemap-xml-for-google-news.xml to lightweight-newscast-xml-sitemap-for-google-news.xml.
+= 1.0.0 =
+Initial release with all features including XML sitemap generation for Google News, SEO plugin compatibility, and customization options.
 
 == Support ==
 

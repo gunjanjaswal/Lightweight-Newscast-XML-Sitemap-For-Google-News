@@ -130,26 +130,21 @@ The plugin is designed to avoid conflicts, but if issues occur:
 
 ## 📝 Changelog
 
-### 1.0.3 (September 2025)
-- Renamed plugin from 'News Sitemap XML for Google News' to 'Lightweight Newscast XML Sitemap For Google News' for better clarity
-- Updated all URLs to use lightweight-newscast-xml-sitemap-for-google-news.xml format
-- Added Buy Me Coffee donation support
-- Improved WordPress.org compliance with unique prefixes
-- Enhanced Google News compatibility descriptions
-
-### 1.0.2
+### 1.0.0
+- Initial release with core functionality
+- Added XML sitemap generation for Google News
+- Implemented settings page with customization options
+- Added support for pretty permalinks
 - Added direct URL interception for SEO plugin compatibility
 - Improved admin interface with better instructions
 - Added Google News submission guidelines
 - Fixed compatibility issues with Yoast SEO and All in One SEO
-
-### 1.0.1
 - Fixed empty publication name and language fields
 - Added fallback values for required fields
 - Improved error handling and validation
-
-### 1.0.0
-- Initial release
+- Improved WordPress.org compliance with unique prefixes
+- Enhanced Google News compatibility descriptions
+- Added Buy Me Coffee donation support
 
 ## 🤝 Contributing
 
