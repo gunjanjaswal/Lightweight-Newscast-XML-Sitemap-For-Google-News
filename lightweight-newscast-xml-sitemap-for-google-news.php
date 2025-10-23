@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Lightweight Newscast XML Sitemap For Google News
  * Description: Generates a Google News compatible XML sitemap for WordPress sites to be submitted to Google Search Console for better news content indexing.
- * Version: 1.0.3
+ * Version: 1.0.0
  * Author: Gunjan Jaswaal
  * Author URI: https://gunjanjaswal.me
  * Donate link: https://www.buymeacoffee.com/gunjanjaswal
@@ -17,7 +17,7 @@ if (!defined('WPINC')) {
 }
 
 // Define plugin constants
-define('NEWSSITEMAP_VERSION', '1.0.3');
+define('NEWSSITEMAP_VERSION', '1.0.0');
 
 /**
  * The code that runs during plugin activation.
