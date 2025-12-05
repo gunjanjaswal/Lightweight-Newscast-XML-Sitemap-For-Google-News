@@ -1,14 +1,19 @@
 <?php
 /**
  * Plugin Name: Lightweight Newscast XML Sitemap For Google News
+ * Plugin URI: https://wordpress.org/plugins/lightweight-newscast-xml-sitemap-for-google-news/
  * Description: Generates a Google News compatible XML sitemap for WordPress sites to be submitted to Google Search Console for better news content indexing.
- * Version: 1.0.0
+ * Version: 1.1.1
  * Author: Gunjan Jaswaal
  * Author URI: https://gunjanjaswal.me
  * Donate link: https://www.buymeacoffee.com/gunjanjaswal
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: lightweight-newscast-xml-sitemap-for-google-news
+ * Domain Path: /languages
+ * Requires at least: 5.0
+ * Requires PHP: 7.4
+ * Tested up to: 6.9
  */
 
 // If this file is called directly, abort.
@@ -17,12 +22,12 @@ if (!defined('WPINC')) {
 }
 
 // Define plugin constants
-define('NEWSSITEMAP_VERSION', '1.0.0');
+define('NEWSSITEMAP_VERSION', '1.1.1');
 
 /**
  * The code that runs during plugin activation.
  */
-function activate_news_sitemap() {
+function lnxsfgn_activate_news_sitemap() {
     // Set default options
     $default_options = array(
         'post_types' => array('post'),
@@ -46,13 +51,13 @@ function activate_news_sitemap() {
 /**
  * The code that runs during plugin deactivation.
  */
-function deactivate_news_sitemap() {
+function lnxsfgn_deactivate_news_sitemap() {
     // Flush rewrite rules to clean up
     flush_rewrite_rules();
 }
 
-register_activation_hook(__FILE__, 'activate_news_sitemap');
-register_deactivation_hook(__FILE__, 'deactivate_news_sitemap');
+register_activation_hook(__FILE__, 'lnxsfgn_activate_news_sitemap');
+register_deactivation_hook(__FILE__, 'lnxsfgn_deactivate_news_sitemap');
 
 /**
  * Main plugin class
@@ -532,4 +537,4 @@ class NewsSitemap_Generator {
 }
 
 // Initialize the plugin
-$news_sitemap_generator = new NewsSitemap_Generator();
+$lnxsfgn_news_sitemap_generator = new NewsSitemap_Generator();

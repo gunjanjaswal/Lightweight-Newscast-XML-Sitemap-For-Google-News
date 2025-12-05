@@ -2,9 +2,9 @@
 Contributors: gunjanjaswal
 Tags: sitemap, google news, news, xml sitemap, seo
 Requires at least: 5.0
-Tested up to: 6.8
-Requires PHP: 7.0
-Stable tag: 1.0.0
+Tested up to: 6.9
+Requires PHP: 7.4
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,19 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 
 == Changelog ==
 
+= 1.1.1 =
+* Fixed WordPress coding standards: Added proper prefixes to all global functions and variables
+* Function names now use 'lnxsfgn_' prefix for compliance
+* Improved code quality and WordPress.org plugin check compatibility
+
+= 1.1.0 =
+* Updated for WordPress 6.9 compatibility
+* Updated minimum PHP requirement to 7.4
+* Added proper plugin headers (Plugin URI, Domain Path, Requires at least, Requires PHP, Tested up to)
+* Enhanced WordPress coding standards compliance
+* Verified compatibility with WordPress 6.9 UTF-8 improvements
+* Confirmed compatibility with WordPress 6.9 frontend performance enhancements
+
 = 1.0.0 =
 * Initial release with core functionality
 * Added XML sitemap generation for Google News
@@ -99,6 +112,12 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 * Added Buy Me Coffee donation support
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Coding standards fix for WordPress.org plugin check compliance.
+
+= 1.1.0 =
+Compatibility update for WordPress 6.9. Requires PHP 7.4 or higher.
 
 = 1.0.0 =
 Initial release with all features including XML sitemap generation for Google News, SEO plugin compatibility, and customization options.

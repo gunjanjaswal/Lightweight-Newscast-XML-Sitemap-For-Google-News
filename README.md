@@ -1,8 +1,8 @@
 # Lightweight Newscast XML Sitemap For Google News
 
 [![Buy Me Coffee](https://img.shields.io/badge/☕-Buy%20me%20a%20coffee-red.svg)](https://www.buymeacoffee.com/gunjanjaswal)
-[![WordPress Plugin Version](https://img.shields.io/badge/WordPress-6.8%20tested-blue.svg)](https://wordpress.org/)
-[![PHP Version](https://img.shields.io/badge/PHP-7.0%2B-purple.svg)](https://php.net/)
+[![WordPress Plugin Version](https://img.shields.io/badge/WordPress-6.9%20tested-blue.svg)](https://wordpress.org/)
+[![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL%20v2%2B-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 
 A lightweight WordPress plugin that generates a Google News compatible XML sitemap for your website. This sitemap helps Google discover and index your news content more efficiently, potentially improving your visibility in Google News search results.
@@ -20,7 +20,7 @@ A lightweight WordPress plugin that generates a Google News compatible XML sitem
 ## 📋 Requirements
 
 - WordPress 5.0 or higher
-- PHP 7.0 or higher
+- PHP 7.4 or higher
 - Pretty permalinks enabled (recommended)
 
 ## 🔧 Installation
@@ -129,6 +129,19 @@ The plugin is designed to avoid conflicts, but if issues occur:
 3. Contact support with specific error details
 
 ## 📝 Changelog
+
+### 1.1.1
+- Fixed WordPress coding standards: Added proper prefixes to all global functions and variables
+- Function names now use 'lnxsfgn_' prefix for compliance
+- Improved code quality and WordPress.org plugin check compatibility
+
+### 1.1.0
+- Updated for WordPress 6.9 compatibility
+- Updated minimum PHP requirement to 7.4
+- Added proper plugin headers (Plugin URI, Domain Path, Requires at least, Requires PHP, Tested up to)
+- Enhanced WordPress coding standards compliance
+- Verified compatibility with WordPress 6.9 UTF-8 improvements
+- Confirmed compatibility with WordPress 6.9 frontend performance enhancements
 
 ### 1.0.0
 - Initial release with core functionality

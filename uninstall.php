@@ -32,7 +32,7 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 /**
  * Clean up plugin data on uninstall
  */
-function lightweight_newscast_xml_sitemap_for_google_news_uninstall() {
+function lnxsfgn_uninstall() {
     // Delete plugin options
     delete_option('newssitemap_options');
     
@@ -52,4 +52,4 @@ function lightweight_newscast_xml_sitemap_for_google_news_uninstall() {
 }
 
 // Run the uninstall function
-lightweight_newscast_xml_sitemap_for_google_news_uninstall();
+lnxsfgn_uninstall();
