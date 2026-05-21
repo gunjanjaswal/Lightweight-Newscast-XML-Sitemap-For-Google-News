@@ -3,17 +3,17 @@
  * Plugin Name: Lightweight Newscast XML Sitemap For Google News
  * Plugin URI: https://wordpress.org/plugins/lightweight-newscast-xml-sitemap-for-google-news/
  * Description: Generates a Google News compatible XML sitemap for WordPress sites to be submitted to Google Search Console for better news content indexing.
- * Version: 1.1.1
- * Author: Gunjan Jaswaal
+ * Version: 1.1.2
+ * Author: Gunjan Jaswal
  * Author URI: https://gunjanjaswal.me
- * Donate link: https://www.buymeacoffee.com/gunjanjaswal
+ * Donate link: https://ko-fi.com/gunjanjaswal
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: lightweight-newscast-xml-sitemap-for-google-news
  * Domain Path: /languages
  * Requires at least: 5.0
  * Requires PHP: 7.4
- * Tested up to: 6.9
+ * Tested up to: 7.0
  */
 
 // If this file is called directly, abort.
@@ -22,7 +22,7 @@ if (!defined('WPINC')) {
 }
 
 // Define plugin constants
-define('NEWSSITEMAP_VERSION', '1.1.1');
+define('NEWSSITEMAP_VERSION', '1.1.2');
 
 /**
  * The code that runs during plugin activation.
@@ -74,6 +74,9 @@ class NewsSitemap_Generator {
         
         // Add plugin action links
         add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'add_plugin_action_links'));
+
+        // Add plugin row meta (Contact Developer)
+        add_filter('plugin_row_meta', array($this, 'add_plugin_row_meta'), 10, 2);
         
         // Add rewrite rules and query vars
         $this->add_rewrite_rules();
@@ -515,9 +518,9 @@ class NewsSitemap_Generator {
                 <li>Wait for Google to crawl and index your content</li>
             </ol>
             
-            <h3>☕ Support Development</h3>
+            <h3>Support Development</h3>
             <p>If this plugin has been helpful for your website, consider supporting its development:</p>
-            <p><a href="https://www.buymeacoffee.com/gunjanjaswal" target="_blank" class="button button-secondary">☕ Buy me a coffee</a></p>
+            <p><a href="https://ko-fi.com/gunjanjaswal" target="_blank" class="button button-secondary">Support on Ko-fi</a></p>
         </div>
         <?php
     }
@@ -527,11 +530,25 @@ class NewsSitemap_Generator {
      */
     public function add_plugin_action_links($links) {
         $settings_link = '<a href="' . admin_url('options-general.php?page=lightweight-newscast-xml-sitemap-for-google-news') . '">' . __('Settings', 'lightweight-newscast-xml-sitemap-for-google-news') . '</a>';
-        $donate_link = '<a href="https://www.buymeacoffee.com/gunjanjaswal" target="_blank" style="color: #d63638; font-weight: bold;">' . __('☕ Buy me a coffee', 'lightweight-newscast-xml-sitemap-for-google-news') . '</a>';
+        $donate_link = '<a href="https://ko-fi.com/gunjanjaswal" target="_blank" style="color: #0073aa; font-weight: bold;">' . __('Support on Ko-fi', 'lightweight-newscast-xml-sitemap-for-google-news') . '</a>';
         
         array_unshift($links, $settings_link);
         array_push($links, $donate_link);
-        
+
+        return $links;
+    }
+
+    /**
+     * Add Contact Developer link to plugin row meta on the Plugins screen.
+     *
+     * @param array  $links Existing plugin row meta links.
+     * @param string $file  Plugin file name.
+     * @return array Modified row meta links.
+     */
+    public function add_plugin_row_meta($links, $file) {
+        if (plugin_basename(__FILE__) === $file) {
+            $links[] = '<a href="mailto:hello@gunjanjaswal.me">' . __('Contact Developer', 'lightweight-newscast-xml-sitemap-for-google-news') . '</a>';
+        }
         return $links;
     }
 }

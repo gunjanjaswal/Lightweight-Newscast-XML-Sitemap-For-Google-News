@@ -1,7 +1,7 @@
 # Lightweight Newscast XML Sitemap For Google News
 
-[![Buy Me Coffee](https://img.shields.io/badge/☕-Buy%20me%20a%20coffee-red.svg)](https://www.buymeacoffee.com/gunjanjaswal)
-[![WordPress Plugin Version](https://img.shields.io/badge/WordPress-6.9%20tested-blue.svg)](https://wordpress.org/)
+[![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?style=flat&logo=ko-fi&logoColor=white)](https://ko-fi.com/gunjanjaswal)
+[![WordPress Plugin Version](https://img.shields.io/badge/WordPress-7.0%20tested-blue.svg)](https://wordpress.org/)
 [![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL%20v2%2B-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -130,6 +130,12 @@ The plugin is designed to avoid conflicts, but if issues occur:
 
 ## 📝 Changelog
 
+### 1.1.2
+- Updated "Tested up to" to WordPress 7.0.
+- Replaced Buy Me a Coffee donation link with Ko-fi (https://ko-fi.com/gunjanjaswal).
+- Added "Contact Developer" link to plugin row meta on the Plugins screen.
+- Author display name updated to "Gunjan Jaswal".
+
 ### 1.1.1
 - Fixed WordPress coding standards: Added proper prefixes to all global functions and variables
 - Function names now use 'lnxsfgn_' prefix for compliance
@@ -187,15 +193,16 @@ GNU General Public License for more details.
 
 ## 👨‍💻 Author
 
-**Gunjan Jaswaal**
+**Gunjan Jaswal**
 - Website: [gunjanjaswal.me](https://gunjanjaswal.me)
 - GitHub: [@gunjanjaswal](https://github.com/gunjanjaswal)
+- Contact: hello@gunjanjaswal.me
 
-## ☕ Support Development
+## Support Development
 
 If this plugin has been helpful for your website, consider supporting its development:
 
-[![Buy Me Coffee](https://img.shields.io/badge/☕-Buy%20me%20a%20coffee-red.svg)](https://www.buymeacoffee.com/gunjanjaswal)
+[![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/gunjanjaswal)
 
 ## 📞 Support
 

@@ -2,9 +2,10 @@
 Contributors: gunjanjaswal
 Tags: sitemap, google news, news, xml sitemap, seo
 Requires at least: 5.0
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.1.2
+Donate link: https://ko-fi.com/gunjanjaswal
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +83,12 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 
 == Changelog ==
 
+= 1.1.2 =
+* Updated "Tested up to" to WordPress 7.0.
+* Replaced Buy Me a Coffee donation link with Ko-fi (https://ko-fi.com/gunjanjaswal).
+* Added "Contact Developer" link to plugin row meta on the Plugins screen.
+* Author display name updated to "Gunjan Jaswal".
+
 = 1.1.1 =
 * Fixed WordPress coding standards: Added proper prefixes to all global functions and variables
 * Function names now use 'lnxsfgn_' prefix for compliance
@@ -113,6 +120,9 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 
 == Upgrade Notice ==
 
+= 1.1.2 =
+Compatibility with WordPress 7.0; donation link moved to Ko-fi; Contact Developer row meta added.
+
 = 1.1.1 =
 Coding standards fix for WordPress.org plugin check compliance.
 
@@ -128,6 +138,6 @@ For support, feature requests, or bug reports, please visit the [plugin's GitHub
 
 == Author ==
 
-This plugin is developed and maintained by [Gunjan Jaswaal](https://gunjanjaswal.me).
+This plugin is developed and maintained by [Gunjan Jaswal](https://gunjanjaswal.me).
 
-If this plugin has been helpful, consider [buying me a coffee](https://www.buymeacoffee.com/gunjanjaswal) to support development!
+If this plugin has been helpful, consider [supporting on Ko-fi](https://ko-fi.com/gunjanjaswal) to back the development!

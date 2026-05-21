@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Gunjan Jaswaal
+# Copyright (C) 2025 Gunjan Jaswal
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
