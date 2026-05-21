@@ -547,6 +547,7 @@ class NewsSitemap_Generator {
      */
     public function add_plugin_row_meta($links, $file) {
         if (plugin_basename(__FILE__) === $file) {
+            $links[] = '<a href="https://wordpress.org/support/plugin/lightweight-newscast-xml-sitemap-for-google-news/" target="_blank">' . __('Plugin Support', 'lightweight-newscast-xml-sitemap-for-google-news') . '</a>';
             $links[] = '<a href="mailto:hello@gunjanjaswal.me">' . __('Contact Developer', 'lightweight-newscast-xml-sitemap-for-google-news') . '</a>';
         }
         return $links;
