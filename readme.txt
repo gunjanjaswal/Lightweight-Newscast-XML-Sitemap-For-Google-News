@@ -4,7 +4,7 @@ Tags: sitemap, google news, news, xml sitemap, seo
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.2
+Stable tag: 1.2.0
 Donate link: https://ko-fi.com/gunjanjaswal
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -83,6 +83,18 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 
 == Changelog ==
 
+= 1.2.0 =
+* New: Cached sitemap output (transient) with automatic cache busting on publish, update, trash and delete. Big performance win for frequently crawled news sites.
+* New: Per-post "Exclude from Google News sitemap" checkbox in the post editor sidebar.
+* New: Featured image included per article via the Google Image sitemap extension (<image:image>).
+* New: <news:keywords> generated from post tags (toggle via the `newssitemap_include_keywords` filter).
+* New: Sitemap is advertised automatically in robots.txt.
+* New: Automatic sitemap index with paginated child sitemaps when eligible posts exceed the per-page limit.
+* New: WP-CLI commands `wp news-sitemap generate` and `wp news-sitemap flush`.
+* New: Per-post language detection for Polylang and WPML (falls back to the global publication language).
+* New: Sitemap Health panel on the settings screen (posts in window, cache status, manual cache clear).
+* New: Developer filters: `newssitemap_query_args`, `newssitemap_cache_ttl`, `newssitemap_include_images`, `newssitemap_include_keywords`, `newssitemap_post_language`.
+
 = 1.1.2 =
 * Updated "Tested up to" to WordPress 7.0.
 * Replaced Buy Me a Coffee donation link with Ko-fi (https://ko-fi.com/gunjanjaswal).
@@ -119,6 +131,9 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 * Added Buy Me Coffee donation support
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+Adds caching, per-post exclusion, featured images, robots.txt advertising, sitemap index pagination, WP-CLI, and Polylang/WPML language detection.
 
 = 1.1.2 =
 Compatibility with WordPress 7.0; donation link moved to Ko-fi; Contact Developer row meta added.

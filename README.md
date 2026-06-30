@@ -14,7 +14,13 @@ A lightweight WordPress plugin that generates a Google News compatible XML sitem
 - **Automatic Updates**: Sitemap updates automatically when you publish new content
 - **Customizable Settings**: Configure post types, categories, publication details, and more
 - **Dual URL Access**: Available via pretty permalinks and query parameters
-- **Performance Optimized**: Lightweight code that doesn't slow down your site
+- **Performance Optimized**: Cached output with automatic cache busting on content changes
+- **Per-Post Exclusion**: Keep individual posts out of the sitemap with one checkbox
+- **Featured Images**: Article thumbnails included via the Google Image sitemap extension
+- **Auto Discovery**: Sitemap advertised in `robots.txt` automatically
+- **Sitemap Index**: Paginated child sitemaps when eligible posts exceed the per-page limit
+- **WP-CLI Support**: `wp news-sitemap generate` and `wp news-sitemap flush`
+- **Multilingual**: Per-post language detection for Polylang and WPML
 - **Translation Ready**: Fully internationalized and ready for translation
 
 ## 📋 Requirements
@@ -129,6 +135,18 @@ The plugin is designed to avoid conflicts, but if issues occur:
 3. Contact support with specific error details
 
 ## 📝 Changelog
+
+### 1.2.0
+- **New**: Cached sitemap output (transient) with automatic cache busting on publish, update, trash and delete — major performance win for frequently crawled news sites.
+- **New**: Per-post "Exclude from Google News sitemap" checkbox in the post editor sidebar.
+- **New**: Featured image included per article via the Google Image sitemap extension (`<image:image>`).
+- **New**: `<news:keywords>` generated from post tags (toggle via the `newssitemap_include_keywords` filter).
+- **New**: Sitemap is advertised automatically in `robots.txt`.
+- **New**: Automatic sitemap index with paginated child sitemaps when eligible posts exceed the per-page limit.
+- **New**: WP-CLI commands `wp news-sitemap generate` and `wp news-sitemap flush`.
+- **New**: Per-post language detection for Polylang and WPML (falls back to the global publication language).
+- **New**: Sitemap Health panel on the settings screen (posts in window, cache status, manual cache clear).
+- **New**: Developer filters — `newssitemap_query_args`, `newssitemap_cache_ttl`, `newssitemap_include_images`, `newssitemap_include_keywords`, `newssitemap_post_language`.
 
 ### 1.1.2
 - Updated "Tested up to" to WordPress 7.0.
