@@ -249,6 +249,7 @@ class NewsSitemap_Generator {
                 ),
             ),
             // Exclude any post flagged with the per-post opt-out meta.
+            // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Required to honor the per-post exclusion opt-out; output is cached.
             'meta_query'     => array(
                 'relation' => 'OR',
                 array(
@@ -435,7 +436,8 @@ class NewsSitemap_Generator {
                 $language = $pll;
             }
         } elseif (defined('ICL_SITEPRESS_VERSION')) {
-            // WPML.
+            // WPML. This is WPML's own public hook, not a hook defined by this plugin.
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party (WPML) hook.
             $details = apply_filters('wpml_post_language_details', null, $post->ID);
             if (is_array($details) && !empty($details['language_code'])) {
                 $language = $details['language_code'];
