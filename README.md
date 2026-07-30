@@ -11,10 +11,14 @@ A lightweight WordPress plugin that generates a Google News compatible XML sitem
 
 - **Google News Compatible**: Generates XML sitemaps in the exact format required by Google News
 - **SEO Plugin Compatible**: Works seamlessly with Yoast SEO, Rank Math, and All in One SEO
+- **Respects "noindex"**: Skips posts set to noindex in Rank Math or Yoast, so hidden content stays out of Google News
+- **SEO Title Support**: Uses your custom Rank Math or Yoast title as the article headline when one is set
+- **Include and Exclude Control**: Include chosen categories, and exclude specific categories or tags such as Sponsored or Press Releases
 - **Automatic Updates**: Sitemap updates automatically when you publish new content
 - **Customizable Settings**: Configure post types, categories, publication details, and more
 - **Dual URL Access**: Available via pretty permalinks and query parameters
 - **Performance Optimized**: Cached output with automatic cache busting on content changes
+- **Sitemap Health Panel**: Lists the articles currently in the sitemap, their age, and when the cache was last built
 - **Per-Post Exclusion**: Keep individual posts out of the sitemap with one checkbox
 - **Featured Images**: Article thumbnails included via the Google Image sitemap extension
 - **Auto Discovery**: Sitemap advertised in `robots.txt` automatically
@@ -50,9 +54,12 @@ After activation, go to **Settings > Lightweight Newscast XML Sitemap For Google
 - **Publication Name**: Your site's name as it should appear in Google News
 - **Publication Language**: ISO 639-1 language code (e.g., "en" for English)
 - **Post Types**: Select which post types to include in the sitemap
-- **Categories**: Choose specific categories or leave empty for all
-- **Maximum Age**: How old posts can be (1-168 hours, default: 48)
-- **Maximum Posts**: Maximum number of posts in sitemap (1-1000, default: 1000)
+- **Categories**: Choose specific categories to include, or leave empty for all
+- **Exclude Categories / Tags**: Keep chosen categories or tags out of the sitemap
+- **Respect SEO "noindex"**: Skip posts marked noindex in Rank Math or Yoast (on by default)
+- **Use SEO Title**: Use the custom Rank Math or Yoast title as the article headline (on by default)
+- **Maximum Age**: How old posts can be (1-48 hours, default: 48)
+- **Maximum Posts**: Maximum number of posts per sitemap page (1-1000, default: 1000)
 
 ## 🔗 Sitemap URLs
 
@@ -135,6 +142,14 @@ The plugin is designed to avoid conflicts, but if issues occur:
 3. Contact support with specific error details
 
 ## 📝 Changelog
+
+### 1.3.0
+- **New**: Respects the "noindex" robots setting from Rank Math and Yoast SEO, so posts hidden from search stay out of the news sitemap. Toggle on the settings screen.
+- **New**: Uses your custom Rank Math or Yoast SEO title as the article headline when one is set, with a safe fallback to the post title.
+- **New**: Exclude specific categories and tags from the sitemap, for example Sponsored or Press Releases.
+- **New**: The Sitemap Health panel now lists the actual articles in the sitemap with their age, and shows how long ago the cache was built.
+- **Fix**: The 48-hour window is now measured in UTC against `post_date_gmt`, so it stays accurate regardless of the site's timezone.
+- **New**: Developer filters `newssitemap_respect_noindex`, `newssitemap_use_seo_title`, and `newssitemap_post_title`.
 
 ### 1.2.0
 - **New**: Cached sitemap output (transient) with automatic cache busting on publish, update, trash and delete — major performance win for frequently crawled news sites.
@@ -225,7 +240,7 @@ If this plugin has been helpful for your website, consider supporting its develo
 ## 📞 Support
 
 For support, feature requests, or bug reports:
-- Create an issue on [GitHub](https://github.com/gunjanjaswal/Google-News-Sitemap-Wordpress)
+- Create an issue on [GitHub](https://github.com/gunjanjaswal/Lightweight-Newscast-XML-Sitemap-For-Google-News)
 - Contact via [website](https://gunjanjaswal.me)
 
 ---

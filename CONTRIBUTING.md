@@ -5,7 +5,7 @@ Thank you for your interest in contributing to Lightweight Newscast XML Sitemap 
 ## 🤝 How to Contribute
 
 ### Reporting Bugs
-1. Check if the bug has already been reported in [Issues](https://github.com/gunjanjaswal/Google-News-Sitemap-Wordpress/issues)
+1. Check if the bug has already been reported in [Issues](https://github.com/gunjanjaswal/Lightweight-Newscast-XML-Sitemap-For-Google-News/issues)
 2. If not, create a new issue with:
    - Clear description of the bug
    - Steps to reproduce
@@ -14,7 +14,7 @@ Thank you for your interest in contributing to Lightweight Newscast XML Sitemap 
    - Screenshots if applicable
 
 ### Suggesting Features
-1. Check existing [Issues](https://github.com/gunjanjaswal/Google-News-Sitemap-Wordpress/issues) for similar requests
+1. Check existing [Issues](https://github.com/gunjanjaswal/Lightweight-Newscast-XML-Sitemap-For-Google-News/issues) for similar requests
 2. Create a new issue with:
    - Clear description of the feature
    - Use case and benefits
@@ -32,7 +32,7 @@ Thank you for your interest in contributing to Lightweight Newscast XML Sitemap 
 1. Fork the repository
 2. Clone your fork locally:
    ```bash
-   git clone https://github.com/yourusername/Google-News-Sitemap-Wordpress.git
+   git clone https://github.com/yourusername/Lightweight-Newscast-XML-Sitemap-For-Google-News.git
    ```
 3. Create a new branch for your feature:
    ```bash
@@ -193,7 +193,7 @@ We use these labels to categorize issues:
 ## 📞 Getting Help
 
 If you need help with development:
-- Check existing [Issues](https://github.com/gunjanjaswal/Google-News-Sitemap-Wordpress/issues)
+- Check existing [Issues](https://github.com/gunjanjaswal/Lightweight-Newscast-XML-Sitemap-For-Google-News/issues)
 - Create a new issue with the `question` label
 - Contact the maintainer via [website](https://gunjanjaswal.me)
 
