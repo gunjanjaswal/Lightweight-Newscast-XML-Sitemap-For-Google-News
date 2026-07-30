@@ -143,6 +143,9 @@ The plugin is designed to avoid conflicts, but if issues occur:
 
 ## 📝 Changelog
 
+### 1.3.1
+- **Fix**: On Polylang sites the sitemap now includes articles from every language, not just the site's default language. Posts in secondary languages were filtered out on the front end, which could leave the sitemap empty even when recent articles existed.
+
 ### 1.3.0
 - **New**: Respects the "noindex" robots setting from Rank Math and Yoast SEO, so posts hidden from search stay out of the news sitemap. Toggle on the settings screen.
 - **New**: Uses your custom Rank Math or Yoast SEO title as the article headline when one is set, with a safe fallback to the post title.

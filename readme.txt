@@ -4,7 +4,7 @@ Tags: sitemap, google news, news, xml sitemap, seo
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 Donate link: https://ko-fi.com/gunjanjaswal
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -100,6 +100,9 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 
 == Changelog ==
 
+= 1.3.1 =
+* Fix: On Polylang sites the sitemap now includes articles from every language, not just the site's default language. Posts in secondary languages were being filtered out on the front end, which could leave the sitemap empty even when recent articles existed.
+
 = 1.3.0 =
 * New: Respects the "noindex" robots setting from Rank Math and Yoast SEO, so posts you have hidden from search stay out of the news sitemap. Can be toggled on the settings screen.
 * New: Uses your custom Rank Math or Yoast SEO title as the article headline when one is set, falling back to the post title when it is empty or its template variables cannot be resolved.
@@ -156,6 +159,9 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 * Added Buy Me Coffee donation support
 
 == Upgrade Notice ==
+
+= 1.3.1 =
+Fixes empty sitemaps on Polylang multilingual sites by including articles from every language.
 
 = 1.3.0 =
 Respects SEO noindex, adds category and tag exclusions, optional SEO-title headlines, a clearer health panel, and a timezone-accurate 48-hour window.
