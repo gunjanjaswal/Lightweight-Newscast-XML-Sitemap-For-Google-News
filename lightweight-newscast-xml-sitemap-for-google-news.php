@@ -3,7 +3,7 @@
  * Plugin Name: Lightweight Newscast XML Sitemap For Google News
  * Plugin URI: https://wordpress.org/plugins/lightweight-newscast-xml-sitemap-for-google-news/
  * Description: Generates a Google News compatible XML sitemap for WordPress sites to be submitted to Google Search Console for better news content indexing.
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author: Gunjan Jaswal
  * Author URI: https://gunjanjaswal.me
  * Donate link: https://ko-fi.com/gunjanjaswal
@@ -22,7 +22,7 @@ if (!defined('WPINC')) {
 }
 
 // Define plugin constants
-define('NEWSSITEMAP_VERSION', '1.3.1');
+define('NEWSSITEMAP_VERSION', '1.3.2');
 
 // Transient key used to cache the rendered sitemap output.
 define('NEWSSITEMAP_CACHE_KEY', 'newssitemap_cache');
@@ -33,7 +33,7 @@ define('NEWSSITEMAP_EXCLUDE_META', '_newssitemap_exclude');
 /**
  * The code that runs during plugin activation.
  */
-function lnxsfgn_activate_news_sitemap() {
+function newssitemap_activate() {
     // Set default options
     $default_options = array(
         'post_types' => array('post'),
@@ -57,7 +57,7 @@ function lnxsfgn_activate_news_sitemap() {
 /**
  * The code that runs during plugin deactivation.
  */
-function lnxsfgn_deactivate_news_sitemap() {
+function newssitemap_deactivate() {
     // Clear any cached sitemap output.
     delete_transient(NEWSSITEMAP_CACHE_KEY);
 
@@ -65,8 +65,8 @@ function lnxsfgn_deactivate_news_sitemap() {
     flush_rewrite_rules();
 }
 
-register_activation_hook(__FILE__, 'lnxsfgn_activate_news_sitemap');
-register_deactivation_hook(__FILE__, 'lnxsfgn_deactivate_news_sitemap');
+register_activation_hook(__FILE__, 'newssitemap_activate');
+register_deactivation_hook(__FILE__, 'newssitemap_deactivate');
 
 /**
  * Main plugin class
@@ -1254,8 +1254,8 @@ if (defined('WP_CLI') && WP_CLI) {
          * @when after_wp_load
          */
         public function generate() {
-            global $lnxsfgn_news_sitemap_generator;
-            $generator = $lnxsfgn_news_sitemap_generator;
+            global $newssitemap_generator;
+            $generator = $newssitemap_generator;
             if (!($generator instanceof NewsSitemap_Generator)) {
                 WP_CLI::error('Sitemap generator is not available.');
             }
@@ -1284,4 +1284,4 @@ if (defined('WP_CLI') && WP_CLI) {
 }
 
 // Initialize the plugin
-$lnxsfgn_news_sitemap_generator = new NewsSitemap_Generator();
+$newssitemap_generator = new NewsSitemap_Generator();

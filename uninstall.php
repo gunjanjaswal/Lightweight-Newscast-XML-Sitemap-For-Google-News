@@ -32,7 +32,7 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 /**
  * Clean up plugin data on uninstall
  */
-function lnxsfgn_uninstall() {
+function newssitemap_uninstall() {
     // Delete plugin options
     delete_option('newssitemap_options');
     
@@ -52,4 +52,4 @@ function lnxsfgn_uninstall() {
 }
 
 // Run the uninstall function
-lnxsfgn_uninstall();
+newssitemap_uninstall();
