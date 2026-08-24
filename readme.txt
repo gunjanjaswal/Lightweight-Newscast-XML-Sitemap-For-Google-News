@@ -2,7 +2,7 @@
 Contributors: gunjanjaswal
 Tags: sitemap, google news, news, xml sitemap, seo
 Requires at least: 5.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 1.3.1
 Donate link: https://ko-fi.com/gunjanjaswal

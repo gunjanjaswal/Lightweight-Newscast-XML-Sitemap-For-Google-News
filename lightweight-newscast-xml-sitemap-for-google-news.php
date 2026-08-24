@@ -13,7 +13,7 @@
  * Domain Path: /languages
  * Requires at least: 5.0
  * Requires PHP: 7.4
- * Tested up to: 7.0
+ * Tested up to: 7.1
  */
 
 // If this file is called directly, abort.
