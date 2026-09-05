@@ -4,7 +4,7 @@ Tags: sitemap, google news, news, xml sitemap, seo
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 Donate link: https://ko-fi.com/gunjanjaswal
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -99,6 +99,9 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 3. Example of generated XML sitemap
 
 == Changelog ==
+
+= 1.3.3 =
+* Fix: Article titles containing HTML entities such as &rsquo; (a curly apostrophe) no longer break the sitemap. These entities are valid in HTML but not in XML, which caused Google Search Console to reject the whole sitemap with "We were unable to read your Sitemap." Titles, publication name and keywords are now decoded to real characters and re-escaped for XML.
 
 = 1.3.2 =
 * Renamed the last few functions and the one global that were still using an old prefix, so everything in the plugin now sits behind the same "newssitemap" name. Internal tidying that clears the naming warnings from Plugin Check; the sitemap output and your settings are untouched.
