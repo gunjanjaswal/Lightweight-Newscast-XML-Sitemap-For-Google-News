@@ -143,6 +143,12 @@ The plugin is designed to avoid conflicts, but if issues occur:
 
 ## 📝 Changelog
 
+### 1.3.3
+- **Fix**: Article titles containing HTML entities such as `&rsquo;` (a curly apostrophe added by `wptexturize`) no longer break the sitemap. These entities are valid in HTML but not in XML, which caused Google Search Console to reject the whole sitemap with "We were unable to read your Sitemap." Titles, publication name and keywords are now decoded to real characters and re-escaped for XML.
+
+### 1.3.2
+- **Maintenance**: Renamed the last few functions and the one global that still used an old prefix, so everything now sits behind the same `newssitemap` name. Internal tidying that clears the naming warnings from Plugin Check; the sitemap output and your settings are untouched.
+
 ### 1.3.1
 - **Fix**: On Polylang sites the sitemap now includes articles from every language, not just the site's default language. Posts in secondary languages were filtered out on the front end, which could leave the sitemap empty even when recent articles existed.
 
