@@ -5,103 +5,83 @@
 [![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL%20v2%2B-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 
-A lightweight WordPress plugin that generates a Google News compatible XML sitemap for your website. This sitemap helps Google discover and index your news content more efficiently, potentially improving your visibility in Google News search results.
+A small WordPress plugin that produces the one sitemap Google News actually wants: a `news:`-namespaced XML feed of your recent articles, ready to drop into Search Console.
 
-## 🚀 Features
+## Why this exists
 
-- **Google News Compatible**: Generates XML sitemaps in the exact format required by Google News
-- **SEO Plugin Compatible**: Works seamlessly with Yoast SEO, Rank Math, and All in One SEO
-- **Respects "noindex"**: Skips posts set to noindex in Rank Math or Yoast, so hidden content stays out of Google News
-- **SEO Title Support**: Uses your custom Rank Math or Yoast title as the article headline when one is set
-- **Include and Exclude Control**: Include chosen categories, and exclude specific categories or tags such as Sponsored or Press Releases
-- **Automatic Updates**: Sitemap updates automatically when you publish new content
-- **Customizable Settings**: Configure post types, categories, publication details, and more
-- **Dual URL Access**: Available via pretty permalinks and query parameters
-- **Performance Optimized**: Cached output with automatic cache busting on content changes
-- **Sitemap Health Panel**: Lists the articles currently in the sitemap, their age, and when the cache was last built
-- **Per-Post Exclusion**: Keep individual posts out of the sitemap with one checkbox
-- **Featured Images**: Article thumbnails included via the Google Image sitemap extension
-- **Auto Discovery**: Sitemap advertised in `robots.txt` automatically
-- **Sitemap Index**: Paginated child sitemaps when eligible posts exceed the per-page limit
-- **WP-CLI Support**: `wp news-sitemap generate` and `wp news-sitemap flush`
-- **Multilingual**: Per-post language detection for Polylang and WPML
-- **Translation Ready**: Fully internationalized and ready for translation
+Google News doesn't read your regular XML sitemap. It expects a separate feed built to its [News sitemap spec](https://support.google.com/news/publisher-center/answer/9606710) — the `news:` namespace, a publication block, and only articles from roughly the last two days. Most of the big SEO plugins either don't generate that feed, hide it behind a premium tier, or bundle it with a lot of other machinery you may not want running on a news site.
 
-## 📋 Requirements
+I wanted something that did that one job and nothing else. No dashboard takeover, no upsells, no fifty settings. Install it, fill in your publication name, submit the URL to Search Console, done. That's the whole plugin.
+
+## What it does
+
+At its simplest it exposes a sitemap at `/lightweight-newscast-xml-sitemap-for-google-news.xml` containing your posts from the last 48 hours, formatted the way Google News parses it. Around that core it handles the things that actually bite you in production:
+
+- **Recent-articles window.** Only posts newer than your configured limit (1–48 hours) are included, which is what Google News wants. The cutoff is measured in UTC against `post_date_gmt`, so it doesn't drift when your site runs on a non-UTC timezone.
+- **Caching.** The rendered XML is stored in a transient and served from cache until you publish, update, trash, or delete a post, at which point the cache is cleared. On a busy site being crawled often, this is the difference between a cheap request and a full `WP_Query` every hit.
+- **Plays nicely with your SEO plugin.** It runs alongside Yoast, Rank Math, or All in One SEO instead of fighting them for the sitemap route. If a post is set to `noindex` in Rank Math or Yoast, it stays out of the news feed too. And if you've set a custom SEO title, that headline is used for `<news:title>`, falling back to the post title when the custom one is empty or its template variables can't be resolved.
+- **Category and tag control.** Include only the categories you choose, and exclude specific categories or tags — handy for keeping Sponsored posts or press releases out of Google News.
+- **Per-post opt-out.** A single checkbox in the post editor sidebar keeps any individual article out of the sitemap.
+- **Featured images.** Each article's thumbnail is added through the Google Image sitemap extension (`<image:image>`).
+- **Big archives.** When the number of eligible posts goes past the per-page limit, the plugin serves a sitemap index with paginated child sitemaps instead of one enormous file.
+- **Multilingual.** On Polylang and WPML sites, each article's language is detected per post rather than assuming the site default, so a mixed-language feed reports the right `<news:language>` for every entry.
+- **robots.txt.** The sitemap is advertised in `robots.txt` automatically so crawlers can find it.
+- **WP-CLI.** `wp news-sitemap generate` and `wp news-sitemap flush` for scripting and deploys.
+- **Health panel.** The settings screen lists the articles currently in the feed with their age and shows when the cache was last built, so you can see what Google will see.
+
+It's translation-ready, and the `.pot` file ships in `languages/`.
+
+## Requirements
 
 - WordPress 5.0 or higher
 - PHP 7.4 or higher
-- Pretty permalinks enabled (recommended)
+- Pretty permalinks (recommended — the `.xml` URL needs them; there's a query-string fallback if you can't enable them)
 
-## 🔧 Installation
+## Installation
 
-### Method 1: WordPress Admin (Recommended)
-1. Download the plugin zip file
-2. Go to your WordPress admin dashboard
-3. Navigate to Plugins > Add New > Upload Plugin
-4. Choose the zip file and click "Install Now"
-5. Activate the plugin
+From the WordPress admin: go to **Plugins > Add New > Upload Plugin**, choose the zip, install, and activate.
 
-### Method 2: Manual Installation
-1. Upload the `lightweight-newscast-xml-sitemap-for-google-news` folder to `/wp-content/plugins/`
-2. Activate the plugin through the WordPress admin Plugins page
-3. Configure the settings at Settings > Lightweight Newscast XML Sitemap For Google News
+Manually: drop the `lightweight-newscast-xml-sitemap-for-google-news` folder into `/wp-content/plugins/`, then activate it from the Plugins screen.
 
-## ⚙️ Configuration
+Either way, finish up under **Settings > Lightweight Newscast XML Sitemap For Google News**.
 
-After activation, go to **Settings > Lightweight Newscast XML Sitemap For Google News** to configure:
+## Configuration
 
-- **Publication Name**: Your site's name as it should appear in Google News
-- **Publication Language**: ISO 639-1 language code (e.g., "en" for English)
-- **Post Types**: Select which post types to include in the sitemap
-- **Categories**: Choose specific categories to include, or leave empty for all
-- **Exclude Categories / Tags**: Keep chosen categories or tags out of the sitemap
-- **Respect SEO "noindex"**: Skip posts marked noindex in Rank Math or Yoast (on by default)
-- **Use SEO Title**: Use the custom Rank Math or Yoast title as the article headline (on by default)
-- **Maximum Age**: How old posts can be (1-48 hours, default: 48)
-- **Maximum Posts**: Maximum number of posts per sitemap page (1-1000, default: 1000)
+The settings screen is short on purpose:
 
-## 🔗 Sitemap URLs
+- **Publication Name** — your site's name exactly as it should appear in Google News.
+- **Publication Language** — an ISO 639-1 code, e.g. `en`. On Polylang/WPML sites this is only the fallback; per-post language wins.
+- **Post Types** — which post types to include.
+- **Categories** — include only these, or leave empty to include everything.
+- **Exclude Categories / Tags** — keep these out of the feed.
+- **Respect SEO "noindex"** — skip posts marked noindex in Rank Math or Yoast. On by default.
+- **Use SEO Title** — use the Rank Math/Yoast title as the headline. On by default.
+- **Maximum Age** — how recent a post must be, 1–48 hours. Default 48.
+- **Maximum Posts** — per-page cap, 1–1000. Default 1000. Go over it and the index/pagination kicks in.
 
-Your Google News sitemap will be available at:
+## Sitemap URLs
 
-- **Primary URL**: `https://yoursite.com/lightweight-newscast-xml-sitemap-for-google-news.xml`
-- **Alternative URL**: `https://yoursite.com/?news_sitemap_google_news=1`
+- Primary: `https://yoursite.com/lightweight-newscast-xml-sitemap-for-google-news.xml`
+- Fallback (no pretty permalinks): `https://yoursite.com/?news_sitemap_google_news=1`
 
-Both URLs work regardless of which SEO plugins you have active.
+Both work no matter which SEO plugins are active.
 
-## 📤 Submit to Google Search Console
+## Submitting to Google Search Console
 
-1. Go to [Google Search Console](https://search.google.com/search-console/)
-2. Add your website property and verify ownership
-3. Navigate to **Sitemaps** in the left menu
-4. Submit your sitemap URL: `https://yoursite.com/lightweight-newscast-xml-sitemap-for-google-news.xml`
-5. Wait for Google to crawl and index your content
+1. Open [Search Console](https://search.google.com/search-console/) and add/verify your site if you haven't.
+2. Go to **Sitemaps** in the sidebar.
+3. Enter the sitemap URL above and submit.
+4. Give Google time to crawl. Note that news content is time-sensitive by design — old articles fall out of the feed once they pass the age window, and that's expected.
 
-## 🔌 SEO Plugin Compatibility
+## How it works under the hood
 
-This plugin is specifically designed to work alongside popular SEO plugins:
+When WordPress boots, the plugin registers a rewrite rule for the `.xml` path (and watches for the query-string fallback). A request to that URL is intercepted before the normal template loads, the cached XML is returned if it's warm, and otherwise a `WP_Query` gathers the eligible posts, the XML is built and cached, then sent with the right content type. Publishing or editing a post clears that cached copy through the standard post-transition hooks, so the next crawl rebuilds it.
 
-- ✅ **Yoast SEO**: Works alongside Yoast's XML sitemaps
-- ✅ **Rank Math**: Compatible with Rank Math's SEO features  
-- ✅ **All in One SEO**: Works with AIOSEO sitemaps
-- ✅ **Other SEO plugins**: Designed to avoid conflicts
-
-## 🎯 Perfect For
-
-- News websites and blogs
-- Magazine and publication sites
-- Content creators who want better Google News visibility
-- SEO professionals managing news content
-
-## 🛠️ Technical Details
-
-### Generated XML Format
-The plugin generates XML sitemaps following Google News specifications:
+The output follows the Google News schema:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
     <loc>https://example.com/news-article/</loc>
@@ -117,31 +97,39 @@ The plugin generates XML sitemaps following Google News specifications:
 </urlset>
 ```
 
-### Security Features
-- Input sanitization using WordPress functions
-- Proper escaping of output data
-- Nonce verification where applicable
-- Follows WordPress coding standards
+Text going into the XML is decoded from HTML entities and re-escaped for XML, so a curly apostrophe stored as `&rsquo;` becomes a real character rather than an entity that XML parsers reject. Output is escaped, input is sanitised with core WordPress functions, and the code follows the WordPress coding standards.
 
-## 🐛 Troubleshooting
+## Developer hooks
 
-### Sitemap Not Loading?
-1. Check if pretty permalinks are enabled
-2. Try the alternative URL: `/?news_sitemap_google_news=1`
-3. Flush permalinks: Settings > Permalinks > Save Changes
+Everything worth overriding is filterable. All filters are prefixed `newssitemap_`:
 
-### Empty Sitemap?
-1. Ensure you have published posts within the maximum age limit
-2. Check if selected post types have published content
-3. Verify category filters aren't too restrictive
+| Filter | What it changes |
+| --- | --- |
+| `newssitemap_query_args` | The `WP_Query` args used to select posts |
+| `newssitemap_cache_ttl` | Transient cache lifetime |
+| `newssitemap_include_images` | Toggle the `<image:image>` extension |
+| `newssitemap_include_keywords` | Toggle `<news:keywords>` built from post tags |
+| `newssitemap_post_language` | Override the language reported for a post |
+| `newssitemap_respect_noindex` | Whether to honour Rank Math/Yoast noindex |
+| `newssitemap_use_seo_title` | Whether to use the SEO title as the headline |
+| `newssitemap_post_title` | The final headline used for `<news:title>` |
 
-### SEO Plugin Conflicts?
-The plugin is designed to avoid conflicts, but if issues occur:
-1. Use the alternative query parameter URL
-2. Check plugin load order
-3. Contact support with specific error details
+WP-CLI:
 
-## 📝 Changelog
+```bash
+wp news-sitemap generate   # rebuild the sitemap now
+wp news-sitemap flush      # clear the cached copy
+```
+
+## Troubleshooting
+
+**The sitemap 404s.** Almost always permalinks. Make sure pretty permalinks are on, then re-save them at **Settings > Permalinks**. If you can't use them, hit the `?news_sitemap_google_news=1` URL instead.
+
+**The sitemap is empty.** Check that you actually have posts published inside the age window — a quiet news day past 48 hours legitimately produces an empty feed. Then confirm the selected post types have content and that your category/tag filters aren't excluding everything.
+
+**Search Console won't read it.** Open the URL in a browser and make sure it's valid XML with no PHP notices printed above the declaration. If another plugin is claiming the route, switch to the query-string URL to confirm.
+
+## Changelog
 
 ### 1.3.3
 - **Fix**: Article titles containing HTML entities such as `&rsquo;` (a curly apostrophe added by `wptexturize`) no longer break the sitemap. These entities are valid in HTML but not in XML, which caused Google Search Console to reject the whole sitemap with "We were unable to read your Sitemap." Titles, publication name and keywords are now decoded to real characters and re-escaped for XML.
@@ -179,47 +167,31 @@ The plugin is designed to avoid conflicts, but if issues occur:
 - Author display name updated to "Gunjan Jaswal".
 
 ### 1.1.1
-- Fixed WordPress coding standards: Added proper prefixes to all global functions and variables
-- Function names now use 'lnxsfgn_' prefix for compliance
-- Improved code quality and WordPress.org plugin check compatibility
+- Fixed WordPress coding standards: added proper prefixes to all global functions and variables.
+- Function names now use the `lnxsfgn_` prefix for compliance.
+- Improved code quality and WordPress.org plugin check compatibility.
 
 ### 1.1.0
-- Updated for WordPress 6.9 compatibility
-- Updated minimum PHP requirement to 7.4
-- Added proper plugin headers (Plugin URI, Domain Path, Requires at least, Requires PHP, Tested up to)
-- Enhanced WordPress coding standards compliance
-- Verified compatibility with WordPress 6.9 UTF-8 improvements
-- Confirmed compatibility with WordPress 6.9 frontend performance enhancements
+- Updated for WordPress 6.9 compatibility.
+- Updated minimum PHP requirement to 7.4.
+- Added proper plugin headers (Plugin URI, Domain Path, Requires at least, Requires PHP, Tested up to).
+- Enhanced WordPress coding standards compliance.
+- Verified compatibility with WordPress 6.9 UTF-8 and frontend performance improvements.
 
 ### 1.0.0
-- Initial release with core functionality
-- Added XML sitemap generation for Google News
-- Implemented settings page with customization options
-- Added support for pretty permalinks
-- Added direct URL interception for SEO plugin compatibility
-- Improved admin interface with better instructions
-- Added Google News submission guidelines
-- Fixed compatibility issues with Yoast SEO and All in One SEO
-- Fixed empty publication name and language fields
-- Added fallback values for required fields
-- Improved error handling and validation
-- Improved WordPress.org compliance with unique prefixes
-- Enhanced Google News compatibility descriptions
-- Added Buy Me Coffee donation support
+- Initial release: XML sitemap generation for Google News.
+- Settings page with customization options.
+- Pretty-permalink support with a direct-URL fallback for SEO plugin compatibility.
+- Fallback values for required fields (publication name and language) plus basic validation.
+- Compatibility fixes for Yoast SEO and All in One SEO.
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. For anything substantial, open an issue first so we can talk through the approach before you spend time on it. To work on it locally, clone the repo into a test WordPress install, activate the plugin, and test your changes against real posts.
 
-### Development Setup
-1. Clone the repository
-2. Set up a local WordPress development environment
-3. Install the plugin in your test site
-4. Make your changes and test thoroughly
+## License
 
-## 📄 License
-
-This plugin is licensed under the GPL v2 or later.
+GPL v2 or later.
 
 ```
 This program is free software; you can redistribute it and/or modify
@@ -233,25 +205,13 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 ```
 
-## 👨‍💻 Author
+## Author
 
 **Gunjan Jaswal**
 - Website: [gunjanjaswal.me](https://gunjanjaswal.me)
 - GitHub: [@gunjanjaswal](https://github.com/gunjanjaswal)
-- Contact: hello@gunjanjaswal.me
+- Email: hello@gunjanjaswal.me
 
-## Support Development
+## Support
 
-If this plugin has been helpful for your website, consider supporting its development:
-
-[![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/gunjanjaswal)
-
-## 📞 Support
-
-For support, feature requests, or bug reports:
-- Create an issue on [GitHub](https://github.com/gunjanjaswal/Lightweight-Newscast-XML-Sitemap-For-Google-News)
-- Contact via [website](https://gunjanjaswal.me)
-
----
-
-**Made with ❤️ for the WordPress community**
+Bug reports and feature requests go on [GitHub](https://github.com/gunjanjaswal/Lightweight-Newscast-XML-Sitemap-For-Google-News). If the plugin has saved you some trouble and you'd like to say thanks, there's a [Ko-fi](https://ko-fi.com/gunjanjaswal).
