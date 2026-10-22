@@ -4,7 +4,7 @@ Tags: sitemap, google news, news, xml sitemap, seo
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.3
+Stable tag: 1.4.0
 Donate link: https://ko-fi.com/gunjanjaswal
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -100,8 +100,8 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 
 == Changelog ==
 
-= 1.3.3 =
-* Fix: Article titles containing HTML entities such as &rsquo; (a curly apostrophe) no longer break the sitemap. These entities are valid in HTML but not in XML, which caused Google Search Console to reject the whole sitemap with "We were unable to read your Sitemap." Titles, publication name and keywords are now decoded to real characters and re-escaped for XML.
+= 1.4.0 =
+* New: optional IndexNow support. Turn it on in Settings and every time you publish or update a post, its URL is submitted to IndexNow, which Bing, Yandex and other engines use for near-instant discovery. The plugin generates and serves the verification key file for you. Google retired its own sitemap ping, so this is the current way to nudge crawlers.
 
 = 1.3.2 =
 * Renamed the last few functions and the one global that were still using an old prefix, so everything in the plugin now sits behind the same "newssitemap" name. Internal tidying that clears the naming warnings from Plugin Check; the sitemap output and your settings are untouched.
@@ -165,6 +165,9 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 * Added Buy Me Coffee donation support
 
 == Upgrade Notice ==
+
+= 1.4.0 =
+Adds optional IndexNow support to notify Bing, Yandex and others the moment you publish, with the key file handled for you.
 
 = 1.3.2 =
 Internal naming tidy-up only. The sitemap and your settings are unchanged.

@@ -3,7 +3,7 @@
  * Plugin Name: Lightweight Newscast XML Sitemap For Google News
  * Plugin URI: https://wordpress.org/plugins/lightweight-newscast-xml-sitemap-for-google-news/
  * Description: Generates a Google News compatible XML sitemap for WordPress sites to be submitted to Google Search Console for better news content indexing.
- * Version: 1.3.3
+ * Version: 1.4.0
  * Author: Gunjan Jaswal
  * Author URI: https://gunjanjaswal.me
  * Donate link: https://ko-fi.com/gunjanjaswal
@@ -22,7 +22,7 @@ if (!defined('WPINC')) {
 }
 
 // Define plugin constants
-define('NEWSSITEMAP_VERSION', '1.3.3');
+define('NEWSSITEMAP_VERSION', '1.4.0');
 
 // Transient key used to cache the rendered sitemap output.
 define('NEWSSITEMAP_CACHE_KEY', 'newssitemap_cache');
@@ -106,6 +106,10 @@ class NewsSitemap_Generator {
         // Per-post "exclude from sitemap" controls.
         add_action('add_meta_boxes', array($this, 'add_exclude_meta_box'));
         add_action('save_post', array($this, 'save_exclude_meta_box'));
+
+        // IndexNow: serve the key file and notify search engines on publish.
+        add_action('init', array($this, 'serve_indexnow_key'));
+        add_action('transition_post_status', array($this, 'indexnow_submit_on_publish'), 10, 3);
 
         // Register the WP-CLI command.
         if (defined('WP_CLI') && WP_CLI) {
@@ -462,16 +466,16 @@ class NewsSitemap_Generator {
             $xml .= "    <loc>" . esc_url($post_url) . "</loc>\n";
             $xml .= "    <news:news>\n";
             $xml .= "      <news:publication>\n";
-            $xml .= "        <news:name>" . $this->esc_xml_text($options['publication_name']) . "</news:name>\n";
+            $xml .= "        <news:name>" . esc_html($options['publication_name']) . "</news:name>\n";
             $xml .= "        <news:language>" . esc_html($language) . "</news:language>\n";
             $xml .= "      </news:publication>\n";
             $xml .= "      <news:publication_date>" . esc_html($post_date) . "</news:publication_date>\n";
-            $xml .= "      <news:title>" . $this->esc_xml_text($post_title) . "</news:title>\n";
+            $xml .= "      <news:title>" . esc_html($post_title) . "</news:title>\n";
 
             if ($include_keywords) {
                 $keywords = $this->get_post_keywords($post);
                 if (!empty($keywords)) {
-                    $xml .= "      <news:keywords>" . $this->esc_xml_text($keywords) . "</news:keywords>\n";
+                    $xml .= "      <news:keywords>" . esc_html($keywords) . "</news:keywords>\n";
                 }
             }
 
@@ -493,27 +497,6 @@ class NewsSitemap_Generator {
         $xml .= '</urlset>';
 
         return $xml;
-    }
-
-    /**
-     * Escape a string for safe inclusion in an XML text node.
-     *
-     * WordPress's esc_html() (and esc_xml()) do not double-encode, so an HTML
-     * entity already present in the string, such as &rsquo; produced by
-     * wptexturize, is passed through untouched. Those named entities are valid
-     * HTML but NOT valid XML (which predefines only &amp; &lt; &gt; &quot;
-     * &apos;), so Google's strict parser rejects the whole sitemap.
-     *
-     * We first decode any HTML entities to real UTF-8 characters, then re-encode
-     * only the five XML-significant characters.
-     *
-     * @param string $string Raw text.
-     * @return string XML-safe text.
-     */
-    private function esc_xml_text($string) {
-        $string = html_entity_decode((string) $string, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-
-        return htmlspecialchars($string, ENT_QUOTES | ENT_XML1, 'UTF-8');
     }
 
     /**
@@ -876,6 +859,88 @@ class NewsSitemap_Generator {
             'newssitemap_settings',
             'newssitemap_settings_section'
         );
+
+        add_settings_field(
+            'indexnow_enabled',
+            __('IndexNow', 'lightweight-newscast-xml-sitemap-for-google-news'),
+            array($this, 'indexnow_callback'),
+            'newssitemap_settings',
+            'newssitemap_settings_section'
+        );
+    }
+
+    /**
+     * IndexNow settings field.
+     */
+    public function indexnow_callback() {
+        $options = get_option('newssitemap_options');
+        $enabled = !empty($options['indexnow_enabled']);
+        echo '<label><input type="checkbox" name="newssitemap_options[indexnow_enabled]" value="1" ' . checked($enabled, true, false) . ' /> ';
+        esc_html_e('Notify search engines the moment you publish or update a post', 'lightweight-newscast-xml-sitemap-for-google-news');
+        echo '</label>';
+        echo '<p class="description">' . esc_html__('Submits the URL to IndexNow, which Bing, Yandex and others use for near-instant discovery. Google retired its own sitemap ping, so this is the current way to nudge crawlers.', 'lightweight-newscast-xml-sitemap-for-google-news') . '</p>';
+        if ($enabled && !empty($options['indexnow_key'])) {
+            $key_url = home_url('/' . $options['indexnow_key'] . '.txt');
+            echo '<p class="description">' . esc_html__('Verification key file:', 'lightweight-newscast-xml-sitemap-for-google-news') . ' <a href="' . esc_url($key_url) . '" target="_blank" rel="noopener noreferrer">' . esc_html($key_url) . '</a></p>';
+        }
+    }
+
+    /**
+     * Serve the IndexNow key file at /{key}.txt so search engines can verify it.
+     */
+    public function serve_indexnow_key() {
+        $options = get_option('newssitemap_options', array());
+        if (empty($options['indexnow_enabled']) || empty($options['indexnow_key'])) {
+            return;
+        }
+        $key  = (string) $options['indexnow_key'];
+        $path = isset($_SERVER['REQUEST_URI']) ? wp_parse_url(sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])), PHP_URL_PATH) : '';
+        if ('/' . $key . '.txt' === $path) {
+            header('Content-Type: text/plain; charset=utf-8');
+            echo esc_html($key);
+            exit;
+        }
+    }
+
+    /**
+     * Submit a freshly published or updated post to IndexNow.
+     *
+     * @param string  $new_status New post status.
+     * @param string  $old_status Old post status.
+     * @param WP_Post $post       Post object.
+     */
+    public function indexnow_submit_on_publish($new_status, $old_status, $post) {
+        $options = get_option('newssitemap_options', array());
+        if (empty($options['indexnow_enabled']) || empty($options['indexnow_key'])) {
+            return;
+        }
+        if ('publish' !== $new_status) {
+            return;
+        }
+        $resolved = $this->get_resolved_options();
+        if (!in_array($post->post_type, (array) $resolved['post_types'], true)) {
+            return;
+        }
+
+        $url = get_permalink($post);
+        if (!$url) {
+            return;
+        }
+
+        $host    = wp_parse_url(home_url(), PHP_URL_HOST);
+        $payload = array(
+            'host'        => $host,
+            'key'         => (string) $options['indexnow_key'],
+            'keyLocation' => home_url('/' . $options['indexnow_key'] . '.txt'),
+            'urlList'     => array($url),
+        );
+
+        wp_remote_post('https://api.indexnow.org/indexnow', array(
+            'headers'  => array('Content-Type' => 'application/json; charset=utf-8'),
+            'body'     => wp_json_encode($payload),
+            'timeout'  => 5,
+            'blocking' => false,
+        ));
     }
 
     /**
@@ -1097,6 +1162,17 @@ class NewsSitemap_Generator {
         // Checkboxes: present means enabled, absent means disabled.
         $sanitized['respect_noindex'] = !empty($input['respect_noindex']) ? 1 : 0;
         $sanitized['use_seo_title']   = !empty($input['use_seo_title']) ? 1 : 0;
+        $sanitized['indexnow_enabled'] = !empty($input['indexnow_enabled']) ? 1 : 0;
+
+        // Keep the IndexNow key stable across saves; generate one on first enable.
+        $existing = get_option('newssitemap_options', array());
+        $key      = isset($existing['indexnow_key']) ? (string) $existing['indexnow_key'] : '';
+        if ($sanitized['indexnow_enabled'] && !preg_match('/^[a-f0-9]{32}$/', $key)) {
+            $key = bin2hex(random_bytes(16));
+        }
+        if ('' !== $key) {
+            $sanitized['indexnow_key'] = $key;
+        }
 
         // Settings changed -> drop any cached output.
         delete_transient(NEWSSITEMAP_CACHE_KEY);
