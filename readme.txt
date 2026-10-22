@@ -103,6 +103,9 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 = 1.4.0 =
 * New: optional IndexNow support. Turn it on in Settings and every time you publish or update a post, its URL is submitted to IndexNow, which Bing, Yandex and other engines use for near-instant discovery. The plugin generates and serves the verification key file for you. Google retired its own sitemap ping, so this is the current way to nudge crawlers.
 
+= 1.3.3 =
+* Fix: Article titles containing HTML entities such as &rsquo; (a curly apostrophe) no longer break the sitemap. These entities are valid in HTML but not in XML, which caused Google Search Console to reject the whole sitemap with "We were unable to read your Sitemap." Titles, publication name and keywords are now decoded to real characters and re-escaped for XML.
+
 = 1.3.2 =
 * Renamed the last few functions and the one global that were still using an old prefix, so everything in the plugin now sits behind the same "newssitemap" name. Internal tidying that clears the naming warnings from Plugin Check; the sitemap output and your settings are untouched.
 

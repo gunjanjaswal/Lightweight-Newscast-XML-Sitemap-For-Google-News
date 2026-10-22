@@ -466,16 +466,16 @@ class NewsSitemap_Generator {
             $xml .= "    <loc>" . esc_url($post_url) . "</loc>\n";
             $xml .= "    <news:news>\n";
             $xml .= "      <news:publication>\n";
-            $xml .= "        <news:name>" . esc_html($options['publication_name']) . "</news:name>\n";
+            $xml .= "        <news:name>" . $this->esc_xml_text($options['publication_name']) . "</news:name>\n";
             $xml .= "        <news:language>" . esc_html($language) . "</news:language>\n";
             $xml .= "      </news:publication>\n";
             $xml .= "      <news:publication_date>" . esc_html($post_date) . "</news:publication_date>\n";
-            $xml .= "      <news:title>" . esc_html($post_title) . "</news:title>\n";
+            $xml .= "      <news:title>" . $this->esc_xml_text($post_title) . "</news:title>\n";
 
             if ($include_keywords) {
                 $keywords = $this->get_post_keywords($post);
                 if (!empty($keywords)) {
-                    $xml .= "      <news:keywords>" . esc_html($keywords) . "</news:keywords>\n";
+                    $xml .= "      <news:keywords>" . $this->esc_xml_text($keywords) . "</news:keywords>\n";
                 }
             }
 
@@ -497,6 +497,27 @@ class NewsSitemap_Generator {
         $xml .= '</urlset>';
 
         return $xml;
+    }
+
+    /**
+     * Escape a string for safe inclusion in an XML text node.
+     *
+     * WordPress's esc_html() (and esc_xml()) do not double-encode, so an HTML
+     * entity already present in the string, such as &rsquo; produced by
+     * wptexturize, is passed through untouched. Those named entities are valid
+     * HTML but NOT valid XML (which predefines only &amp; &lt; &gt; &quot;
+     * &apos;), so Google's strict parser rejects the whole sitemap.
+     *
+     * We first decode any HTML entities to real UTF-8 characters, then re-encode
+     * only the five XML-significant characters.
+     *
+     * @param string $string Raw text.
+     * @return string XML-safe text.
+     */
+    private function esc_xml_text($string) {
+        $string = html_entity_decode((string) $string, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+        return htmlspecialchars($string, ENT_QUOTES | ENT_XML1, 'UTF-8');
     }
 
     /**
