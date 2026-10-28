@@ -2,9 +2,9 @@
 Contributors: gunjanjaswal
 Tags: sitemap, google news, news, xml sitemap, seo
 Requires at least: 5.0
-Tested up to: 7.1
+Tested up to: 7.1.4
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 Donate link: https://ko-fi.com/gunjanjaswal
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -99,6 +99,9 @@ The plugin uses the timezone configured in your WordPress General Settings (Sett
 3. Example of generated XML sitemap
 
 == Changelog ==
+
+= 1.4.1 =
+* Tested and confirmed compatible with WordPress 7.1.4.
 
 = 1.4.0 =
 * New: optional IndexNow support. Turn it on in Settings and every time you publish or update a post, its URL is submitted to IndexNow, which Bing, Yandex and other engines use for near-instant discovery. The plugin generates and serves the verification key file for you. Google retired its own sitemap ping, so this is the current way to nudge crawlers.
