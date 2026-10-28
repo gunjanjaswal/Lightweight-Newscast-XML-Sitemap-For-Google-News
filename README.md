@@ -131,6 +131,8 @@ wp news-sitemap flush      # clear the cached copy
 
 ## Changelog
 
+The full changelog lives in [`readme.txt`](readme.txt). Recent releases:
+
 ### 1.4.1
 - Tested and confirmed compatible with WordPress 7.1.4.
 
@@ -145,61 +147,6 @@ wp news-sitemap flush      # clear the cached copy
 
 ### 1.3.1
 - Fix: On Polylang sites the sitemap now includes articles from every language, not just the site's default language. Posts in secondary languages were being filtered out on the front end, which could leave the sitemap empty even when recent articles existed.
-
-### 1.3.0
-- New: Respects the "noindex" robots setting from Rank Math and Yoast SEO, so posts you have hidden from search stay out of the news sitemap. Can be toggled on the settings screen.
-- New: Uses your custom Rank Math or Yoast SEO title as the article headline when one is set, falling back to the post title when it is empty or its template variables cannot be resolved.
-- New: Exclude specific categories and tags from the sitemap, for example Sponsored or Press Releases.
-- New: The Sitemap Health panel now lists the actual articles in the sitemap with their age, and shows how long ago the cache was built.
-- Fix: The 48-hour window is now measured in UTC against post_date_gmt, so it stays accurate no matter which timezone the site runs in.
-- New: Developer filters `newssitemap_respect_noindex`, `newssitemap_use_seo_title`, and `newssitemap_post_title`.
-
-### 1.2.0
-- New: Cached sitemap output (transient) with automatic cache busting on publish, update, trash and delete. Big performance win for frequently crawled news sites.
-- New: Per-post "Exclude from Google News sitemap" checkbox in the post editor sidebar.
-- New: Featured image included per article via the Google Image sitemap extension (<image:image>).
-- New: <news:keywords> generated from post tags (toggle via the `newssitemap_include_keywords` filter).
-- New: Sitemap is advertised automatically in robots.txt.
-- New: Automatic sitemap index with paginated child sitemaps when eligible posts exceed the per-page limit.
-- New: WP-CLI commands `wp news-sitemap generate` and `wp news-sitemap flush`.
-- New: Per-post language detection for Polylang and WPML (falls back to the global publication language).
-- New: Sitemap Health panel on the settings screen (posts in window, cache status, manual cache clear).
-- New: Developer filters: `newssitemap_query_args`, `newssitemap_cache_ttl`, `newssitemap_include_images`, `newssitemap_include_keywords`, `newssitemap_post_language`.
-
-### 1.1.2
-- Updated "Tested up to" to WordPress 7.0.
-- Replaced Buy Me a Coffee donation link with Ko-fi (https://ko-fi.com/gunjanjaswal).
-- Added "Contact Developer" link to plugin row meta on the Plugins screen.
-- Author display name updated to "Gunjan Jaswal".
-
-### 1.1.1
-- Fixed WordPress coding standards: Added proper prefixes to all global functions and variables
-- Function names now use 'lnxsfgn_' prefix for compliance
-- Improved code quality and WordPress.org plugin check compatibility
-
-### 1.1.0
-- Updated for WordPress 6.9 compatibility
-- Updated minimum PHP requirement to 7.4
-- Added proper plugin headers (Plugin URI, Domain Path, Requires at least, Requires PHP, Tested up to)
-- Enhanced WordPress coding standards compliance
-- Verified compatibility with WordPress 6.9 UTF-8 improvements
-- Confirmed compatibility with WordPress 6.9 frontend performance enhancements
-
-### 1.0.0
-- Initial release with core functionality
-- Added XML sitemap generation for Google News
-- Implemented settings page with customization options
-- Added support for pretty permalinks
-- Added direct URL interception for SEO plugin compatibility
-- Improved admin interface with better instructions
-- Added Google News submission guidelines
-- Fixed compatibility issues with Yoast SEO and All in One SEO
-- Fixed empty publication name and language fields
-- Added fallback values for required fields
-- Improved error handling and validation
-- Improved WordPress.org compliance with unique prefixes
-- Enhanced Google News compatibility descriptions
-- Added Buy Me Coffee donation support
 
 ## Contributing
 
